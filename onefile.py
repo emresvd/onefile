@@ -47,20 +47,22 @@ for i in project_modules:
     with open(i, "r", encoding="utf-8") as f:
         module_code = f.read()
 
-    print(module_code)
-
     module_code_without_name_main = ""
-    name_main=False
+    name_main = False
     for j in module_code.splitlines():
+        if not bool(j):
+            continue
+
+        tab = len(j.split(j.strip())[0])
+
         if j.strip() == 'if __name__ == "__main__":' or j.strip() == 'if __name__=="__main__":' or j.strip() == "if __name__ == '__main__':" or j.strip() == "if __name__=='__main__':":
-            name_main=True
-            tab=len(j.split(j.strip())[0])
+            name_main = True
             print(tab)
         if not name_main:
             pass
-        module_code_without_name_main+=j+"\n"
+        module_code_without_name_main += j+"\n"
 
-    codes_of_all_modules+=module_code_without_name_main+"\n"
+    codes_of_all_modules += module_code_without_name_main+"\n"
 
 #print(codes_of_all_modules)
 # with open(file_name.split(".")[0]+"_one.py", "w", encoding="utf-8") as f:
