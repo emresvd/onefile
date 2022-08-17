@@ -26,10 +26,13 @@ for i in code.splitlines():
         from_module = from_module.replace(".", os.sep)
         module_files.append(from_module+".py")
 
-        folder_import_file = i.replace("from", "").strip()
-        folder = folder_import_file.split("import")[0].strip()
-        file = folder_import_file.split("import")[1].strip()
-        module_files.append(os.path.join(folder, file)+".py")
+        try:
+            folder_import_file = i.replace("from", "").strip()
+            folder = folder_import_file.split("import")[0].strip()
+            file = folder_import_file.split("import")[1].strip()
+            module_files.append(os.path.join(folder, file)+".py")
+        except IndexError:
+            continue
 
 project_modules = []
 for i in module_files:
@@ -42,8 +45,12 @@ print(project_modules)
 codes = ""
 for i in project_modules:
     with open(i, "r", encoding="utf-8") as f:
-        codes = codes + "\n"+f.read()
-codes += code
+        for j in f.read().splitlines():
+            if "if __name__ == '__main__':" == j.strip() or "if __name__=='__main__':" == j.strip() or 'if __name__ == "__main__":' == j.strip() or 'if __name__=="__main__":' == j.strip():
+                pass
+            else:
+                codes += f.read()+"\n"
+codes = code+codes
 
 with open(file_name.split(".")[0]+"_one.py", "w", encoding="utf-8") as f:
     f.write(codes)
