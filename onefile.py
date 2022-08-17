@@ -54,18 +54,17 @@ for i in project_modules:
             continue
 
         tab = len(j.split(j.strip())[0])
-        name_main_tab = 0
 
         if j.strip() == 'if __name__ == "__main__":' or j.strip() == 'if __name__=="__main__":' or j.strip() == "if __name__ == '__main__':" or j.strip() == "if __name__=='__main__':":
             name_main = True
-            name_main_tab = tab
 
-        if tab <= name_main_tab and name_main:
-            name_main = False
-            name_main_tab = 0
+        print(tab,j)
 
         if not name_main:
             module_code_without_name_main += j+"\n"
+        if name_main:
+            continue
+            print(j)
 
     codes_of_all_modules += module_code_without_name_main+"\n"
 
