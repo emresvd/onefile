@@ -22,7 +22,7 @@ for i in code.splitlines():
     if i.startswith("from"):
         from_module = i.replace("from", "").strip().split("import")[0].strip()
         from_module = from_module.replace(".", os.sep)
-        module_files.append(from_module)
+        module_files.append(from_module+".py")
 
         folder_import_file = i.replace("from", "").strip()
         folder = folder_import_file.split("import")[0].strip()
