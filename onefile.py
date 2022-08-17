@@ -25,9 +25,9 @@ for i in code.splitlines():
         module_files.append(from_module)
 
         folder_import_file = i.replace("from", "").strip()
-        folder=folder_import_file.split("import")[0].strip()
-        file=folder_import_file.split("import")[1].strip()
-        print(folder_import_file,folder,file)
+        folder = folder_import_file.split("import")[0].strip()
+        file = folder_import_file.split("import")[1].strip()
+        module_files.append(os.path.join(folder, file)+".py")
 
 project_modules = []
 for i in module_files:
