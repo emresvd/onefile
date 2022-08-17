@@ -42,10 +42,21 @@ for i in module_files:
 
 print(project_modules)
 
+codes_of_all_modules = ""
 for i in project_modules:
-    with open(i,"r",encoding="utf-8") as f:
-        module_code=f.read()
+    with open(i, "r", encoding="utf-8") as f:
+        module_code = f.read()
+
     print(module_code)
 
+    module_code_without_name_main = ""
+    for j in module_code.splitlines():
+        if j.strip() == 'if __name__ == "__main__":' or j.strip() == 'if __name__=="__main__":' or j.strip() == "if __name__ == '__main__':" or j.strip() == "if __name__=='__main__':":
+            continue
+        module_code_without_name_main+=j+"\n"
+
+    codes_of_all_modules+=module_code_without_name_main+"\n"
+
+print(codes_of_all_modules)
 # with open(file_name.split(".")[0]+"_one.py", "w", encoding="utf-8") as f:
 #     f.write(codes)
