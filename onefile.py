@@ -50,13 +50,18 @@ for i in project_modules:
     print(module_code)
 
     module_code_without_name_main = ""
+    name_main=False
     for j in module_code.splitlines():
         if j.strip() == 'if __name__ == "__main__":' or j.strip() == 'if __name__=="__main__":' or j.strip() == "if __name__ == '__main__':" or j.strip() == "if __name__=='__main__':":
-            continue
+            name_main=True
+            tab=len(j.split(j.strip())[0])
+            print(tab)
+        if not name_main:
+            pass
         module_code_without_name_main+=j+"\n"
 
     codes_of_all_modules+=module_code_without_name_main+"\n"
 
-print(codes_of_all_modules)
+#print(codes_of_all_modules)
 # with open(file_name.split(".")[0]+"_one.py", "w", encoding="utf-8") as f:
 #     f.write(codes)
