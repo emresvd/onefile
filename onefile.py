@@ -76,12 +76,12 @@ for i in project_modules:
 
         if not name_main:
             module_code_without_name_main += j+"\n"
-        if name_main:
-            print(j)
+        # if name_main:
+        #     print(j)
 
     codes_of_all_modules += module_code_without_name_main+"\n"
 
 #print(codes_of_all_modules)
 
-# with open(file_name.split(".")[0]+"_one.py", "w", encoding="utf-8") as f:
-#     f.write(codes)
+with open(file_name.split(".")[0]+"_one.py", "w", encoding="utf-8") as f:
+    f.write(codes_of_all_modules+"\n"+code)
