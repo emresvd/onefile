@@ -36,3 +36,11 @@ for i in module_files:
             project_modules.append(i)
 
 print(project_modules)
+
+codes = ""
+for i in project_modules:
+    with open(i, "r", encoding="utf-8") as f:
+        codes += f.read()
+
+with open(file_name.split(".")[0]+"_one.py", "w", encoding="utf-8") as f:
+    f.write(codes)
