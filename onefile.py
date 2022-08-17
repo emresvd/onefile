@@ -32,6 +32,7 @@ for i in code.splitlines():
 project_modules = []
 for i in module_files:
     if os.path.isfile(i):
-        project_modules.append(i)
+        if not i in project_modules:
+            project_modules.append(i)
 
 print(project_modules)
