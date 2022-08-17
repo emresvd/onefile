@@ -20,9 +20,12 @@ for i in code.splitlines():
             module_files.append(module_s+".py")
 
     if i.startswith("from"):
-        packages = i.replace("from", "").strip().split("import")[0].strip()
-        packages = packages.replace(".", os.sep)
-        print(packages)
+        from_module = i.replace("from", "").strip().split("import")[0].strip()
+        from_module = from_module.replace(".", os.sep)
+        module_files.append(from_module)
+
+        folder_import_file = i.replace("from", "").strip()
+        print(folder_import_file)
 
 project_modules = []
 for i in module_files:
