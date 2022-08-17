@@ -11,7 +11,7 @@ module_files = []
 for i in code.splitlines():
     i = i.strip()
     if i.startswith("import"):
-        module_s = i.split("import")[1].strip()
+        module_s = i.replace("import", "").strip()
 
         if len(module_s.split(",")) > 1:
             module_s = module_s.split(",")
@@ -20,8 +20,9 @@ for i in code.splitlines():
             module_files.append(module_s+".py")
 
     if i.startswith("from"):
-        # print(i)
-        pass
+        packages = i.replace("from", "").strip().split("import")[0].strip()
+        packages = packages.replace(".", os.sep)
+        print(packages)
 
 project_modules = []
 for i in module_files:
