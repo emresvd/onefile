@@ -40,7 +40,8 @@ print(project_modules)
 codes = ""
 for i in project_modules:
     with open(i, "r", encoding="utf-8") as f:
-        codes += f.read()
+        codes = codes + "\n"+f.read()
+codes += code
 
 with open(file_name.split(".")[0]+"_one.py", "w", encoding="utf-8") as f:
     f.write(codes)
