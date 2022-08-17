@@ -49,6 +49,8 @@ for i in project_modules:
 
     module_code_without_name_main = ""
     name_main = False
+    look_name_main_tab = False
+
     for j in module_code.splitlines():
         if not bool(j):
             continue
@@ -57,13 +59,22 @@ for i in project_modules:
 
         if j.strip() == 'if __name__ == "__main__":' or j.strip() == 'if __name__=="__main__":' or j.strip() == "if __name__ == '__main__':" or j.strip() == "if __name__=='__main__':":
             name_main = True
+            look_name_main_tab = True
 
-        print(tab,j)
+        if look_name_main_tab:
+            name_main_tab = tab
+            look_name_main_tab = False
+            name_main = True
+
+        try:
+            if tab < name_main_tab:
+                name_main = False
+        except NameError:
+            pass
 
         if not name_main:
             module_code_without_name_main += j+"\n"
         if name_main:
-            continue
             print(j)
 
     codes_of_all_modules += module_code_without_name_main+"\n"
