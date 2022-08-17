@@ -21,6 +21,8 @@ for i in code.splitlines():
 
     if i.startswith("from"):
         from_module = i.replace("from", "").strip().split("import")[0].strip()
+        if from_module.startswith("."):
+            from_module = from_module.replace(".", "")
         from_module = from_module.replace(".", os.sep)
         module_files.append(from_module+".py")
 
