@@ -60,15 +60,17 @@ for i in project_modules:
         if j.strip() == 'if __name__ == "__main__":' or j.strip() == 'if __name__=="__main__":' or j.strip() == "if __name__ == '__main__':" or j.strip() == "if __name__=='__main__':":
             name_main = True
             look_name_main_tab = True
+            continue
 
         if look_name_main_tab:
             name_main_tab = tab
             look_name_main_tab = False
-            name_main = True
 
         try:
             if tab < name_main_tab:
                 name_main = False
+            else:
+                name_main = True
         except NameError:
             pass
 
