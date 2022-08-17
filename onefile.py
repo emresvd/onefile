@@ -1,4 +1,5 @@
 # This script converts multiple python files into one python file
+# there's no need
 import sys
 import os
 
