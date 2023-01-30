@@ -29,7 +29,7 @@ def import_(line):
         module_path = os.path.abspath(module_path)
         module_path = os.path.normpath(module_path)
         module_path += '.py'
-        if os.path.isfile(module_name):
+        if os.path.isfile(module_path):
             putcode(module_path, line, module_name, from_import=True)
 
 
