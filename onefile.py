@@ -32,13 +32,7 @@ def putcode(module_path, line, module_name, from_import=False):
 
     code = code.replace(line, module_code)
     if from_import:
-        # if code != code.replace(f" {module_name}.", ""):
-        #     code = code.replace(f" {module_name}.", " ")
-        # if code != code.replace(f"={module_name}.", ""):
-        #     code = code.replace(f"={module_name}.", "=")
-        # if code != code.replace(f"({module_name}.", ""):
-        #     code = code.replace(f"({module_name}.", "(")
-        code = code.replace(f"\n{module_name}.", "")
+        code = code.replace(f"\n{module_name}.", "\n")
         code = code.replace(f" {module_name}.", " ")
         code = code.replace(f"={module_name}.", "=")
         code = code.replace(f"({module_name}.", "(")
