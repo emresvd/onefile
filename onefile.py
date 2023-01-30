@@ -12,6 +12,7 @@ def strip(s):
 
 
 def putcode(path, line):
+    global code
     with open(path, "r", encoding="utf-8") as f:
         module_code = f.read()
     code = code.replace(line, module_code)
@@ -39,3 +40,6 @@ for line in code.splitlines():
         import_(line)
     if line.startswith('from'):
         from_(line)
+
+
+print(code)
