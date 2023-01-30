@@ -40,7 +40,6 @@ def putcode(module_path, line, module_name, from_import=False):
 
 def import_(line):
     module_s_name = list(map(strip, line.replace("import", "").split(",")))
-
     for module_name in module_s_name:
         if module_name.startswith('.'):
             module_name = module_name[1:]
