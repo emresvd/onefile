@@ -11,17 +11,23 @@ def strip(s):
     return s.strip()
 
 
+def putcode(path, line):
+    with open(path, "r", encoding="utf-8") as f:
+        module_code = f.read()
+    code = code.replace(line, module_code)
+
+
 def import_(line):
     module_s = list(map(strip, line.replace("import", "").split(",")))
     for module in module_s:
         if module.startswith('.'):
             module = module[1:]
-        module_path = os.path.join(os.path.dirname(start_file), module)
-        module_path = os.path.abspath(module)
-        module_path = os.path.normpath(module)
-        module_path += '.py'
-        if os.path.isfile(module_path):
-            print(module)
+        module = os.path.join(os.path.dirname(start_file), module)
+        module = os.path.abspath(module)
+        module = os.path.normpath(module)
+        module += '.py'
+        if os.path.isfile(module):
+            putcode(module, line)
 
 
 def from_(line):
