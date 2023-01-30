@@ -26,7 +26,8 @@ def import_(line):
     for module_name in module_s_name:
         if module_name.startswith('.'):
             module_name = module_name[1:]
-        module_path = os.path.join(os.path.dirname(start_file), module_name)
+        module_path = os.path.join(os.path.dirname(
+            start_file), module_name.replace(".", os.sep))
         module_path = os.path.abspath(module_path)
         module_path = os.path.normpath(module_path)
         module_path += '.py'
