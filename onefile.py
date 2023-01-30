@@ -20,7 +20,8 @@ def import_(line):
         module = os.path.abspath(module)
         module = os.path.normpath(module)
         module += '.py'
-        print(module)
+        if os.path.isfile(module):
+            print(module)
 
 
 def from_(line):
