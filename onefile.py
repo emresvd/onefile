@@ -24,6 +24,12 @@ def putcode(module_path, line, module_name, from_import=False):
     global code
     with open(module_path, "r", encoding="utf-8") as f:
         module_code = f.read()
+
+    # for l in module_code.splitlines():
+    #     if l.startswith('import'):
+    #         print(os.path.dirname(module_path))
+    #         print(l.replace("import", "").split(","))
+
     code = code.replace(line, module_code)
     if from_import:
         # if code != code.replace(f" {module_name}.", ""):
@@ -43,7 +49,7 @@ def import_(line):
     for module_name in module_s_name:
         if module_name.startswith('.'):
             module_name = module_name[1:]
-            
+
         module_path = get_module_path(module_name)
 
         if os.path.isfile(module_path):
@@ -64,7 +70,6 @@ while True:
         if line.startswith('from'):
             from_(line)
 
-    print(project_modules)
 
     if not project_modules:
         break
