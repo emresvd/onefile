@@ -20,7 +20,6 @@ def import_(line):
         module = os.path.abspath(module)
         module = os.path.normpath(module)
         print(module)
-    print(module_s)
 
 
 def from_(line):
