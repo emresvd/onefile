@@ -30,6 +30,7 @@ def putcode(module_path, line, module_name, from_import=False):
 
 def import_(line):
     module_s_name = list(map(strip, line.replace("import", "").split(",")))
+
     for module_name in module_s_name:
         if module_name.startswith('.'):
             module_name = module_name[1:]
@@ -39,6 +40,7 @@ def import_(line):
         module_path = os.path.normpath(module_path)
         module_path += '.py'
         if os.path.isfile(module_path):
+            project_modules.append(module_path)
             putcode(module_path, line, module_name, from_import=True)
 
 
@@ -46,11 +48,15 @@ def from_(line):
     pass
 
 
-for line in code.splitlines():
-    if line.startswith('import'):
-        import_(line)
-    if line.startswith('from'):
-        from_(line)
+for i in range(3):
+    project_modules=[]
+
+    for line in code.splitlines():
+        if line.startswith('import'):
+            import_(line)
+        if line.startswith('from'):
+            from_(line)
+    print(project_modules)
 
 
-print(code)
+# print(code)
