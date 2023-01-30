@@ -19,6 +19,7 @@ def import_(line):
         module = os.path.join(os.path.dirname(start_file), module)
         module = os.path.abspath(module)
         module = os.path.normpath(module)
+        module += '.py'
         print(module)
 
 
