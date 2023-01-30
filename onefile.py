@@ -17,8 +17,15 @@ def putcode(module_path, line, module_name, from_import=False):
         module_code = f.read()
     code = code.replace(line, module_code)
     if from_import:
-        code = code.replace(f" {module_name}.", "")
-        code = code.replace(f"={module_name}.", "")
+        # if code != code.replace(f" {module_name}.", ""):
+        #     code = code.replace(f" {module_name}.", " ")
+        # if code != code.replace(f"={module_name}.", ""):
+        #     code = code.replace(f"={module_name}.", "=")
+        # if code != code.replace(f"({module_name}.", ""):
+        #     code = code.replace(f"({module_name}.", "(")
+        code = code.replace(f" {module_name}.", " ")
+        code = code.replace(f"={module_name}.", "=")
+        code = code.replace(f"({module_name}.", "(")
 
 
 def import_(line):
