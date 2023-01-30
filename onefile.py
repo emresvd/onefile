@@ -11,24 +11,26 @@ def strip(s):
     return s.strip()
 
 
-def putcode(path, line):
+def putcode(module_path, line, module_name, from_import=False):
     global code
-    with open(path, "r", encoding="utf-8") as f:
+    with open(module_path, "r", encoding="utf-8") as f:
         module_code = f.read()
     code = code.replace(line, module_code)
+    if from_import:
+        code = code.replace()
 
 
 def import_(line):
-    module_s = list(map(strip, line.replace("import", "").split(",")))
-    for module in module_s:
-        if module.startswith('.'):
-            module = module[1:]
-        module = os.path.join(os.path.dirname(start_file), module)
-        module = os.path.abspath(module)
-        module = os.path.normpath(module)
-        module += '.py'
-        if os.path.isfile(module):
-            putcode(module, line)
+    module_s_name = list(map(strip, line.replace("import", "").split(",")))
+    for module_name in module_s_name:
+        if module_name.startswith('.'):
+            module_name = module_name[1:]
+        module_path = os.path.join(os.path.dirname(start_file), module_name)
+        module_path = os.path.abspath(module_name)
+        module_path = os.path.normpath(module_name)
+        module_path += '.py'
+        if os.path.isfile(module_name):
+            putcode(module_path, line, module_name, from_import=True)
 
 
 def from_(line):
