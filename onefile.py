@@ -26,8 +26,8 @@ def import_(line):
         if module_name.startswith('.'):
             module_name = module_name[1:]
         module_path = os.path.join(os.path.dirname(start_file), module_name)
-        module_path = os.path.abspath(module_name)
-        module_path = os.path.normpath(module_name)
+        module_path = os.path.abspath(module_path)
+        module_path = os.path.normpath(module_path)
         module_path += '.py'
         if os.path.isfile(module_name):
             putcode(module_path, line, module_name, from_import=True)
@@ -44,4 +44,4 @@ for line in code.splitlines():
         from_(line)
 
 
-# print(code)
+print(code)
