@@ -16,11 +16,11 @@ def import_(line):
     for module in module_s:
         if module.startswith('.'):
             module = module[1:]
-        module = os.path.join(os.path.dirname(start_file), module)
-        module = os.path.abspath(module)
-        module = os.path.normpath(module)
-        module += '.py'
-        if os.path.isfile(module):
+        module_path = os.path.join(os.path.dirname(start_file), module)
+        module_path = os.path.abspath(module)
+        module_path = os.path.normpath(module)
+        module_path += '.py'
+        if os.path.isfile(module_path):
             print(module)
 
 
