@@ -1,4 +1,5 @@
 import sys
+import os
 
 start_file = sys.argv[-1]
 
@@ -12,6 +13,13 @@ def strip(s):
 
 def import_(line):
     module_s = list(map(strip, line.replace("import", "").split(",")))
+    for module in module_s:
+        if module.startswith('.'):
+            module = module[1:]
+        module = os.path.join(os.path.dirname(start_file), module)
+        module = os.path.abspath(module)
+        module = os.path.normpath(module)
+        print(module)
     print(module_s)
 
 
