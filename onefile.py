@@ -75,4 +75,5 @@ while True:
         break
 
 
-# print(code)
+if "a" in sys.argv:
+    print(code)
