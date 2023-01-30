@@ -16,7 +16,7 @@ def import_(line):
 
 
 def from_(line):
-    print(line)
+    pass
 
 
 for line in code.splitlines():
