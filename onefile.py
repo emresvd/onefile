@@ -7,14 +7,11 @@ with open(start_file, 'r', encoding="utf-8") as f:
 
 
 def strip(s):
-    l = []
-    for i in s:
-        l.append(i.strip())
-    return l
+    return s.strip()
 
 
 def import_(line):
-    module_s = map(line.replace("import", "").strip().split(","), strip)
+    module_s = list(map(strip, line.replace("import", "").split(",")))
     print(module_s)
 
 
