@@ -20,8 +20,8 @@ def remove_comma_in_imports(code):
 code = remove_comma_in_imports(code)
 
 
-def strip(s):
-    return s.strip()
+# def strip(s):
+#     return s.strip()
 
 
 def get_module_path(module_name):
@@ -37,7 +37,7 @@ added_module_names = []
 
 
 def putcode(module_path, line, module_name, from_import=False):
-    global code#, added_module_names
+    global code  # , added_module_names
     # if module_name in added_module_names:
     #     print(added_module_names)
     #     return
@@ -59,20 +59,19 @@ def putcode(module_path, line, module_name, from_import=False):
 
 
 def import_(line):
-    module_s_name = list(map(strip, line.replace("import", "").split(",")))
-    for module_name in module_s_name:
-        if module_name.startswith('.'):
-            module_name = module_name[1:]
+    # module_s_name = list(map(strip, line.replace("import", "").split(",")))
+    module_name = line.replace("import", "").strip()
+    if module_name.startswith('.'):
+        module_name = module_name[1:]
 
-        module_path = get_module_path(module_name)
+    module_path = get_module_path(module_name)
 
-        if os.path.isfile(module_path):
-            project_modules.append(module_path)
-            putcode(module_path, line, module_name, from_import=True)
+    if os.path.isfile(module_path):
+        project_modules.append(module_path)
+        putcode(module_path, line, module_name, from_import=True)
 
 
 def from_(line):
-    global project_modules
     module_name = line.replace("from", "").split("import")[0].strip()
     if module_name.startswith('.'):
         module_name = module_name[1:]
@@ -82,7 +81,6 @@ def from_(line):
     if os.path.isfile(module_path):
         project_modules.append(module_path)
         putcode(module_path, line, module_name, from_import=False)
-        project_modules=[]
 
 
 while True:
