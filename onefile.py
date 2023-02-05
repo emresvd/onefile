@@ -20,10 +20,6 @@ def remove_comma_in_imports(code):
 code = remove_comma_in_imports(code)
 
 
-# def strip(s):
-#     return s.strip()
-
-
 def get_module_path(module_name):
     module_path = os.path.join(os.path.dirname(
         start_file), module_name.replace(".", os.sep))
@@ -33,20 +29,13 @@ def get_module_path(module_name):
     return module_path
 
 
-
-
 def putcode(module_path, line, module_name, from_import=False):
-    global code ,added_module_names
+    global code, added_module_names
     if module_name in added_module_names:
-        code=code.replace(line, "")
+        code = code.replace(line, "")
         return
     with open(module_path, "r", encoding="utf-8") as f:
         module_code = f.read()
-
-    # for l in module_code.splitlines():
-    #     if l.startswith('import'):
-    #         print(os.path.dirname(module_path))
-    #         print(l.replace("import", "").split(","))
 
     code = code.replace(line, module_code)
     if from_import:
@@ -54,11 +43,11 @@ def putcode(module_path, line, module_name, from_import=False):
         code = code.replace(f" {module_name}.", " ")
         code = code.replace(f"={module_name}.", "=")
         code = code.replace(f"({module_name}.", "(")
+
     added_module_names.append(module_name)
 
 
 def import_(line):
-    # module_s_name = list(map(strip, line.replace("import", "").split(",")))
     module_name = line.replace("import", "").strip()
     if module_name.startswith('.'):
         module_name = module_name[1:]
@@ -80,6 +69,7 @@ def from_(line):
     if os.path.isfile(module_path):
         project_modules.append(module_path)
         putcode(module_path, line, module_name, from_import=False)
+
 
 added_module_names = []
 
