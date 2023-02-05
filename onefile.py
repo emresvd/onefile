@@ -40,36 +40,10 @@ def putcode(module_path, line, module_name, import_=False):
 
     code = code.replace(line, module_code)
     if import_:
-        code = code.replace(f"\n{module_name}.", "\n")
-        code = code.replace(f" {module_name}.", " ")
-        code = code.replace(f"={module_name}.", "=")
-        code = code.replace(f"({module_name}.", "(")
+        for i in ["\n", " ", "=", "("]:
+            code = code.replace(f"{i}{module_name}.", i)
 
     added_module_names.append(module_name)
-
-
-# def import_(line):
-#     module_name = line.replace("import", "").strip()
-#     if module_name.startswith('.'):
-#         module_name = module_name[1:]
-
-#     module_path = get_module_path(module_name)
-
-#     if os.path.isfile(module_path):
-#         project_modules.append(module_path)
-#         putcode(module_path, line, module_name, import_=True)
-
-
-# def from_(line):
-#     module_name = line.replace("from", "").split("import")[0].strip()
-#     if module_name.startswith('.'):
-#         module_name = module_name[1:]
-
-#     module_path = get_module_path(module_name)
-
-#     if os.path.isfile(module_path):
-#         project_modules.append(module_path)
-#         putcode(module_path, line, module_name, import_=False)
 
 
 def add_code_from_line(line, import_=True):
@@ -94,10 +68,6 @@ while True:
     project_modules = []
 
     for line in code.splitlines():
-        # if line.startswith('import'):
-        #     import_(line)
-        # if line.startswith('from'):
-        #     from_(line)
         add_code_from_line(line, import_=line.startswith('import'))
 
     if not project_modules:
