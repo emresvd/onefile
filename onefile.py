@@ -2,7 +2,10 @@ import sys
 import os
 import autopep8
 
-start_file = sys.argv[-1]
+if "are" in sys.argv:
+    start_file = sys.argv[1]
+else:
+    start_file = sys.argv[-1]
 
 with open(start_file, 'r', encoding="utf-8") as f:
     code = f.read()
@@ -86,5 +89,5 @@ while True:
     if not project_modules:
         break
 
-code=autopep8.fix_code(code)
+code = autopep8.fix_code(code)
 print(code)
