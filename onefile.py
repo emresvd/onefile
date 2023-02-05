@@ -33,14 +33,13 @@ def get_module_path(module_name):
     return module_path
 
 
-added_module_names = []
 
 
 def putcode(module_path, line, module_name, from_import=False):
-    global code  # , added_module_names
-    # if module_name in added_module_names:
-    #     print(added_module_names)
-    #     return
+    global code ,added_module_names
+    if module_name in added_module_names:
+        code=code.replace(line, "")
+        return
     with open(module_path, "r", encoding="utf-8") as f:
         module_code = f.read()
 
@@ -55,7 +54,7 @@ def putcode(module_path, line, module_name, from_import=False):
         code = code.replace(f" {module_name}.", " ")
         code = code.replace(f"={module_name}.", "=")
         code = code.replace(f"({module_name}.", "(")
-    # added_module_names.append(module_name)
+    added_module_names.append(module_name)
 
 
 def import_(line):
@@ -82,6 +81,7 @@ def from_(line):
         project_modules.append(module_path)
         putcode(module_path, line, module_name, from_import=False)
 
+added_module_names = []
 
 while True:
     project_modules = []
@@ -94,7 +94,6 @@ while True:
 
     if not project_modules:
         break
-    break
 
 
 if "a" in sys.argv:
