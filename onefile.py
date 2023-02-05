@@ -1,5 +1,6 @@
 import sys
 import os
+import autopep8
 
 start_file = sys.argv[-1]
 
@@ -85,6 +86,5 @@ while True:
     if not project_modules:
         break
 
-
-if "a" in sys.argv:
-    print(code)
+code=autopep8.fix_code(code)
+print(code)
