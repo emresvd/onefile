@@ -14,7 +14,8 @@ def remove_comma_in_imports(code):
             new_code.append(line.replace(',', '\nimport '))
         elif line.startswith('from'):
             from_package = line.split("import")[0].split("from")[1].strip()
-            new_code.append(line.replace(',', f'\nfrom {from_package} import '))
+            new_code.append(line.replace(
+                ',', f'\nfrom {from_package} import '))
         else:
             new_code.append(line)
     return '\n'.join(new_code)
@@ -36,8 +37,13 @@ def get_module_path(module_name):
     return module_path
 
 
+added_module_names = []
+
+
 def putcode(module_path, line, module_name, from_import=False):
-    global code
+    global code, added_module_names
+    if module_name in added_module_names:
+        return
     with open(module_path, "r", encoding="utf-8") as f:
         module_code = f.read()
 
@@ -52,6 +58,7 @@ def putcode(module_path, line, module_name, from_import=False):
         code = code.replace(f" {module_name}.", " ")
         code = code.replace(f"={module_name}.", "=")
         code = code.replace(f"({module_name}.", "(")
+    added_module_names.append(module_name)
 
 
 def import_(line):
@@ -68,7 +75,7 @@ def import_(line):
 
 
 def from_(line):
-    pass
+    module_name = line.replace("from", "").split("import")[0].strip()
 
 
 while True:
