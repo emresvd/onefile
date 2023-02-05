@@ -7,6 +7,22 @@ with open(start_file, 'r', encoding="utf-8") as f:
     code = f.read()
 
 
+def remove_comma_in_imports(code):
+    new_code = []
+    for line in code.splitlines():
+        if line.startswith('import'):
+            new_code.append(line.replace(',', '\nimport '))
+        elif line.startswith('from'):
+            from_package = line.split("import")[0].split("from")[1].strip()
+            new_code.append(line.replace(',', f'\nfrom {from_package} import '))
+        else:
+            new_code.append(line)
+    return '\n'.join(new_code)
+
+
+code = remove_comma_in_imports(code)
+
+
 def strip(s):
     return s.strip()
 
@@ -63,7 +79,6 @@ while True:
             import_(line)
         if line.startswith('from'):
             from_(line)
-
 
     if not project_modules:
         break
