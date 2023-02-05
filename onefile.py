@@ -2,12 +2,10 @@ import sys
 import os
 import autopep8
 
-if "are" in sys.argv:
-    start_file = sys.argv[1]
-else:
-    start_file = sys.argv[-1]
 
-with open(start_file, 'r', encoding="utf-8") as f:
+file_path = sys.argv[int("-" * int(not "are" in sys.argv) + "1")]
+
+with open(file_path, 'r', encoding="utf-8") as f:
     code = f.read()
 
 
@@ -26,7 +24,7 @@ code = remove_comma_in_imports(code)
 
 def get_module_path(module_name):
     module_path = os.path.join(os.path.dirname(
-        start_file), module_name.replace(".", os.sep))
+        file_path), module_name.replace(".", os.sep))
     module_path = os.path.abspath(module_path)
     module_path = os.path.normpath(module_path)
     module_path += '.py'
