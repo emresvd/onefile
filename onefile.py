@@ -15,10 +15,23 @@ def remove_comma_in_imports(code):
             new_code.append(line.replace(',', '\nimport '))
         else:
             new_code.append(line)
-    return '\n'.join(new_code)
+    return autopep8.fix_code('\n'.join(new_code))
+
+
+def sort_imports(code):
+    import_lines = []
+    for line in code.splitlines():
+        if line.startswith('import'):
+            import_lines.append(line)
+    sorted_import_lines = []
+    sorted_import_lines += import_lines
+    sorted_import_lines.sort(key=len)
+    sorted_import_lines.reverse()
+    return code.replace('\n'.join(import_lines), '\n'.join(sorted_import_lines))
 
 
 code = remove_comma_in_imports(code)
+code = sort_imports(code)
 
 
 def get_module_path(module_name):
@@ -57,6 +70,9 @@ def add_code_from_line(line, import_=True):
 
     module_path = get_module_path(module_name)
 
+    if os.path.isdir(module_path.replace(".py", "")):
+        module_path = os.path.join(
+            module_path.replace(".py", ""), "__init__.py")
     if os.path.isfile(module_path):
         project_modules.append(module_path)
         putcode(module_path, line, module_name, import_=import_)
