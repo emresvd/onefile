@@ -84,7 +84,8 @@ while True:
     project_modules = []
 
     for line in code.splitlines():
-        add_code_from_line(line, import_=line.startswith('import'))
+        if line.startswith('import') or line.startswith('from'):
+            add_code_from_line(line, import_=line.startswith('import'))
 
     if not project_modules:
         break
