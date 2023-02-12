@@ -10,23 +10,28 @@ with open(file_path, 'r', encoding="utf-8") as f:
 
 def remove_comma_in_imports(code):
     new_code = []
+
     for line in code.splitlines():
         if line.startswith('import'):
             new_code.append(line.replace(',', '\nimport '))
         else:
             new_code.append(line)
+
     return autopep8.fix_code('\n'.join(new_code))
 
 
 def sort_imports(code):
     import_lines = []
+
     for line in code.splitlines():
         if line.startswith('import'):
             import_lines.append(line)
+
     sorted_import_lines = []
     sorted_import_lines += import_lines
     sorted_import_lines.sort(key=len)
     sorted_import_lines.reverse()
+
     return code.replace('\n'.join(import_lines), '\n'.join(sorted_import_lines))
 
 
@@ -35,8 +40,7 @@ code = sort_imports(code)
 
 
 def get_module_path(module_name):
-    module_path = os.path.join(os.path.dirname(
-        file_path), module_name.replace(".", os.sep))
+    module_path = os.path.join(os.path.dirname(file_path), module_name.replace(".", os.sep))
     module_path = os.path.abspath(module_path)
     module_path = os.path.normpath(module_path)
     module_path += '.py'
@@ -45,9 +49,11 @@ def get_module_path(module_name):
 
 def putcode(module_path, line, module_name, import_=False):
     global code, added_module_names
+
     if module_name in added_module_names:
         code = code.replace(line, "")
         return
+
     with open(module_path, "r", encoding="utf-8") as f:
         module_code = f.read()
 
@@ -73,6 +79,7 @@ def add_code_from_line(line, import_=True):
     if os.path.isdir(module_path.replace(".py", "")):
         module_path = os.path.join(
             module_path.replace(".py", ""), "__init__.py")
+
     if os.path.isfile(module_path):
         project_modules.append(module_path)
         putcode(module_path, line, module_name, import_=import_)
