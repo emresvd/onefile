@@ -77,8 +77,7 @@ def add_code_from_line(line, import_=True):
     module_path = get_module_path(module_name)
 
     if os.path.isdir(module_path.replace(".py", "")):
-        module_path = os.path.join(
-            module_path.replace(".py", ""), "__init__.py")
+        module_path = os.path.join(module_path.replace(".py", ""), "__init__.py")
 
     if os.path.isfile(module_path):
         project_modules.append(module_path)
